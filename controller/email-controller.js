@@ -1,6 +1,5 @@
 const EmailService = require("../service/email-service");
 const formidable = require('formidable');
-
 class EmailController{
     async sendMails(req, res , next){
         try {
@@ -12,13 +11,9 @@ class EmailController{
                 res.end('Помилка на сервері');
                 return;
               }
-        
-              // Отримуємо шлях до тимчасового файлу
               const filePath = files.file.filepath;
-              EmailService.sendMessageToEmails(filePath);
-              
-              // Зчитуємо вміст файлу з тимчасового файлу
-              
+              const html  = fields.html;
+             EmailService.sendMessageToEmails(filePath , html);
             });
             res.send("УСПІШНО")
            }
@@ -27,5 +22,4 @@ class EmailController{
            }
     }
 }
-
 module.exports = new EmailController();
