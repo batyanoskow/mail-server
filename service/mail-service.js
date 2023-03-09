@@ -1,7 +1,5 @@
 const nodemailer = require('nodemailer');
-
 class MailService {
-
     constructor() {
         this.transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
@@ -16,8 +14,7 @@ class MailService {
             }
         })
     }
-
-    async sendMail(to) {
+    async sendMail(to , html) {
         try{
             await this.transporter.sendMail({
                 from: "https://send-emails-list.onrender.com",
@@ -27,7 +24,7 @@ class MailService {
                 html:
                     `
                         <div>
-                            <h1>Розсилка від Batyanoskow</h1>
+                            ${html}
                         </div>
                     `
             })
@@ -35,8 +32,6 @@ class MailService {
         catch(e){
             console.log(e)
         }
-        
     }
 }
-
 module.exports = new MailService();
